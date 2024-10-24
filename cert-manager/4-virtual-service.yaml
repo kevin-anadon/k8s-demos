@@ -1,0 +1,23 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: excalidraw-app
+  namespace: staging-test
+spec:
+  hosts:
+    - kanadon-test.ddns.net
+  # for ingress gateway
+  gateways:
+    - api
+  http:
+    # for ingress gateway
+    - match:
+        - uri:
+            prefix: /
+      route:
+    # This could be automated
+        - destination:
+            host: excalidraw-app
+            subset: v1
+          weight: 100

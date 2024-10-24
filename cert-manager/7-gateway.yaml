@@ -1,0 +1,27 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: api
+  namespace: staging-test
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    # Unsafe connection
+    # - port:
+    #     number: 80
+    #     name: http
+    #     protocol: HTTP
+    #   hosts:
+    #    - kanadon-test.ddns.net
+    
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: excalidraw-app  # Ensure this matches the secret name created by cert-manager
+      hosts:
+        - kanadon-test.ddns.net
